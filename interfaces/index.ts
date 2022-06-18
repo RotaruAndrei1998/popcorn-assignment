@@ -4,7 +4,9 @@
 //
 // import { User } from 'path/to/interfaces';
 
-export type User = {
-  id: number
-  name: string
+export interface Book {
+  id: string | any;
+  authors: Array<string>;
+  publisher: string;
+  title: string;
 }
