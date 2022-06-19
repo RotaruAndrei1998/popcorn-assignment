@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
+import { normalizerBook } from "../../utils/normalizers";
 
 interface Props {
   setBooks: Function;
@@ -24,16 +25,7 @@ const Search = ({ setBooks }: Props) => {
         setBooks([]);
         return;
       }
-      setBooks(
-        items.map((item) => ({
-          id: item.id,
-          authors: Array.isArray(item.volumeInfo.authors)
-            ? item.volumeInfo.authors
-            : [],
-          publisher: item.volumeInfo.publisher,
-          title: item.volumeInfo.title,
-        }))
-      );
+      setBooks(items.map(normalizerBook));
     } catch (err: any) {
       console.error(err);
       setIsLoading(false);
@@ -79,4 +71,4 @@ const Search = ({ setBooks }: Props) => {
   );
 };
 
-export default Search;
+export default memo(Search);
