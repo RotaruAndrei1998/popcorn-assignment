@@ -1,6 +1,6 @@
 import { Book } from "interfaces";
 import BookCard from "./BookCard";
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import ReadingListContext from "../../contexts/ReadingListContext/ReadingListContext";
 
 type Props = {
@@ -13,10 +13,9 @@ const BooksContainer = ({ books }: Props) => {
   const isBookInReadingList = (id) =>
     readingList.some((readingListBook) => readingListBook.id === id);
 
-  if(!books || books?.length === 0) {
-    return <div>No books</div>
+  if (!books || books?.length === 0) {
+    return <div>No books</div>;
   }
-
 
   return (
     <div>
@@ -32,4 +31,4 @@ const BooksContainer = ({ books }: Props) => {
   );
 };
 
-export default BooksContainer;
+export default memo(BooksContainer);

@@ -9,44 +9,34 @@ interface Props {
 const ReadingListProvider = ({ children }: Props) => {
   const [readingList, setReadingList] = useState<Array<Book>>([]);
 
-  const addBook = useCallback(
-    (book) => {
+  const addBook = useCallback((book) => {
+    setReadingList((readingList) => {
       if (
         readingList.some((readingListBook) => readingListBook.id === book.id)
       ) {
         console.error("Book is already in the reading list");
-        return;
+        return readingList;
       }
-      setReadingList((readingList) => [...readingList, book]);
-    },
-    [readingList]
-  );
 
-  const removeBook = useCallback(
-    (id) => {
+      return [...readingList, book];
+    });
+  }, []);
+
+  const removeBook = useCallback((id) => {
+    setReadingList((readingList) => {
       if (!readingList.some((readingListBook) => readingListBook.id === id)) {
         console.error("Book is not in the reading list");
-        return;
+        return readingList;
       }
       const _readingList = readingList.filter(
         (readingListBook) => readingListBook.id !== id
       );
-      setReadingList(_readingList);
-    },
-    [readingList]
-  );
-
-  const context = useMemo(
-    () => ({
-      readingList,
-      addBook,
-      removeBook,
-    }),
-    [readingList, addBook, removeBook]
-  );
+      return _readingList;
+    });
+  }, []);
 
   return (
-    <ReadingListContext.Provider value={context}>
+    <ReadingListContext.Provider value={{ readingList, addBook, removeBook }}>
       {children}
     </ReadingListContext.Provider>
   );
