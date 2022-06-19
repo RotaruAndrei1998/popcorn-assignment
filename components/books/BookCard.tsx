@@ -36,7 +36,7 @@ const BookCard = ({ data, isInReadingList, addBook, removeBook }: Props) => (
     <div>{data.publisher}</div>
     <div>
       {data.authors.map((author) => (
-        <span>{author}</span>
+        <span key={author}>{author}</span>
       ))}
     </div>
   </div>

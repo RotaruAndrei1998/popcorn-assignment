@@ -1,7 +1,7 @@
 import { Book } from "interfaces";
 import BookCard from "./BookCard";
 import { useContext, memo } from "react";
-import ReadingListContext from "../../contexts/ReadingListContext/ReadingListContext";
+import ReadingListContext from "contexts/ReadingListContext/ReadingListContext";
 
 type Props = {
   books: Book[];
@@ -12,13 +12,12 @@ const BooksContainer = ({ books }: Props) => {
 
   const isBookInReadingList = (id) =>
     readingList.some((readingListBook) => readingListBook.id === id);
-
   if (!books || books?.length === 0) {
     return <div>No books</div>;
   }
 
   return (
-    <div>
+    <>
       {books.map((item) => (
         <BookCard
           data={item}
@@ -27,7 +26,7 @@ const BooksContainer = ({ books }: Props) => {
           removeBook={removeBook}
         />
       ))}
-    </div>
+    </>
   );
 };
 
